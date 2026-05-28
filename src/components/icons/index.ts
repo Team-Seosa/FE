@@ -1,0 +1,13 @@
+export { default as ArrowRight } from "./ArrowRight";
+export { default as ArrowLeft } from "./ArrowLeft";
+export { default as ChevronDown } from "./ChevronDown";
+export { default as Check } from "./Check";
+export { default as Download } from "./Download";
+export { default as GitHub } from "./GitHub";
+export { default as Info } from "./Info";
+export { default as Layers } from "./Layers";
+export { default as Loader } from "./Loader";
+export { default as Plus } from "./Plus";
+export { default as Upload } from "./Upload";
+export { default as X } from "./X";
+export type { IconProps } from "./types";
