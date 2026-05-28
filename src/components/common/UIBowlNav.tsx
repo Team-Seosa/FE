@@ -27,7 +27,7 @@ const UIBowlNav = ({ leftExtra }: UIBowlNavProps) => {
       </div>
       <div className="flex items-center gap-6">
         <a
-          href="https://github.com"
+          href="https://github.com/Team-Seosa"
           target="_blank"
           rel="noreferrer noopener"
           className="inline-flex items-center gap-1.5 text-[13px] text-text-secondary no-underline transition-colors hover:text-text-primary"
