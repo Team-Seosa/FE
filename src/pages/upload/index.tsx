@@ -51,10 +51,7 @@ const UploadPage = () => {
   };
 
   return (
-    <div
-      className="uibowl-root min-h-full bg-bg-base"
-      style={{ width: 1280 }}
-    >
+    <div className="uibowl-root min-h-screen w-full bg-bg-base">
       <UIBowlNav
         leftExtra={
           <button
@@ -67,7 +64,7 @@ const UploadPage = () => {
         }
       />
       <div
-        className="px-16 py-16"
+        className="mx-auto w-full max-w-[1280px] px-16 py-16"
         style={{ animation: "uibowl-fadein 240ms var(--ease-out-expo)" }}
       >
         <div className="t-caption tracking-[0.08em] uppercase text-text-tertiary">

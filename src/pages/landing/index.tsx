@@ -14,16 +14,15 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div
-      className="uibowl-root relative min-h-full overflow-hidden"
-      style={{ width: 1280 }}
-    >
+    <div className="uibowl-root relative min-h-screen w-full overflow-hidden bg-bg-base">
       <LandingBackground />
       <div className="relative z-10">
         <UIBowlNav />
-        <HeroSection stage={stage} />
-        <MetricsStrip />
-        <LandingFooter />
+        <div className="mx-auto w-full max-w-[1280px]">
+          <HeroSection stage={stage} />
+          <MetricsStrip />
+          <LandingFooter />
+        </div>
       </div>
     </div>
   );

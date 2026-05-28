@@ -24,10 +24,7 @@ const ResultPage = () => {
   );
 
   return (
-    <div
-      className="uibowl-root min-h-full bg-bg-base"
-      style={{ width: 1280 }}
-    >
+    <div className="uibowl-root min-h-screen w-full bg-bg-base">
       <UIBowlNav
         leftExtra={
           <button
@@ -40,7 +37,7 @@ const ResultPage = () => {
         }
       />
       <div
-        className="px-16 pt-12 pb-16"
+        className="mx-auto w-full max-w-[1280px] px-16 pt-12 pb-16"
         style={{ animation: "uibowl-fadein-up 240ms var(--ease-out-expo)" }}
       >
         <div className="flex items-end justify-between">
