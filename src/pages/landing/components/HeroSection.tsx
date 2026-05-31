@@ -18,7 +18,7 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-[7fr_5fr] items-center gap-12 px-16 pt-16 pb-12">
+    <div className="grid grid-cols-1 items-center gap-8 px-4 pt-10 pb-10 md:px-8 md:pt-16 md:pb-12 lg:grid-cols-[7fr_5fr] lg:gap-12 lg:px-16">
       <div>
         <div
           className="inline-flex items-center gap-2 rounded-full border border-[rgba(34,211,238,0.25)] bg-[rgba(34,211,238,0.08)] px-3 py-2"
@@ -56,7 +56,7 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
         </h1>
 
         <p
-          className="mt-6 max-w-[480px] text-[17px] font-normal leading-[1.5] text-text-secondary"
+          className="mt-6 max-w-[480px] text-[15px] font-normal leading-[1.5] text-text-secondary md:text-[17px]"
           style={fadeUpStyle(stage, 220)}
         >
           EfficientNet과 LSTM이 연속된 모바일 화면 흐름을 읽고, 63개 UI/UX
@@ -64,7 +64,7 @@ const HeroSection = ({ stage }: HeroSectionProps) => {
         </p>
 
         <div
-          className="mt-8 flex items-center gap-6"
+          className="mt-8 flex flex-wrap items-center gap-4 md:gap-6"
           style={fadeUpStyle(stage, 280)}
         >
           <button

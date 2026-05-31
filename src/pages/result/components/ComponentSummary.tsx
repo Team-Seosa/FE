@@ -31,13 +31,15 @@ const ComponentSummary = ({ screens }: ComponentSummaryProps) => {
   return (
     <div>
       <h3 className="t-h3 text-text-primary">컴포넌트 요약</h3>
-      <div className="mt-4 grid grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-0">
         {cells.map((cell, i) => (
           <div
             key={cell.label}
             className={[
-              "px-4",
-              i === 0 ? "pl-0" : "border-l border-border-subtle",
+              "py-3 sm:px-4 sm:py-0",
+              i === 0
+                ? "sm:pl-0"
+                : "border-t border-border-subtle sm:border-t-0 sm:border-l",
             ].join(" ")}
           >
             <div className="t-caption text-text-tertiary">{cell.label}</div>

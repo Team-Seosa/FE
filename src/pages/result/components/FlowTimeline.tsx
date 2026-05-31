@@ -11,10 +11,10 @@ interface FlowTimelineProps {
 
 const FlowTimeline = ({ screens, selected, onSelect }: FlowTimelineProps) => (
   <div
-    className="mt-8 flex items-center gap-4 rounded-[14px] border border-border-subtle bg-bg-elevated px-6 py-4"
+    className="uibowl-scroll mt-8 flex items-center gap-4 overflow-x-auto rounded-[14px] border border-border-subtle bg-bg-elevated px-4 py-4 md:px-6"
     style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)" }}
   >
-    <div className="t-caption mr-2 tracking-[0.08em] uppercase text-text-tertiary">
+    <div className="t-caption mr-2 shrink-0 tracking-[0.08em] uppercase text-text-tertiary">
       FLOW
     </div>
     {screens.map((s, i) => {
@@ -30,7 +30,7 @@ const FlowTimeline = ({ screens, selected, onSelect }: FlowTimelineProps) => (
           <button
             type="button"
             onClick={() => onSelect(s.step)}
-            className="flex cursor-pointer flex-col items-center gap-2 border-none bg-transparent p-1 transition-all"
+            className="flex shrink-0 cursor-pointer flex-col items-center gap-2 border-none bg-transparent p-1 transition-all"
           >
             <div
               className={[
