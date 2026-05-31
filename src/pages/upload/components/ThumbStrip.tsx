@@ -17,12 +17,12 @@ const ThumbStrip = ({ thumbs, labels, onRemove, onAdd }: ThumbStripProps) => (
       {thumbs.map((_, i) => `Step ${i + 1}`).join("  →  ")}
     </div>
     <div className="uibowl-scroll mt-4 overflow-x-auto pb-3">
-      <div className="flex min-h-[380px] items-center">
+      <div className="flex min-h-[280px] items-center md:min-h-[380px]">
         {thumbs.map((variant, i) => (
           <Fragment key={i}>
             {i > 0 && (
               <div
-                className="flex w-12 justify-center text-accent-indigo"
+                className="flex w-8 shrink-0 justify-center text-accent-indigo md:w-12"
                 style={{
                   animation:
                     "uibowl-pulse-arrow 2400ms var(--ease-in-out-expo) infinite",
@@ -31,20 +31,24 @@ const ThumbStrip = ({ thumbs, labels, onRemove, onAdd }: ThumbStripProps) => (
                 <ArrowRight size={20} />
               </div>
             )}
-            <ThumbCard
-              step={i + 1}
-              variant={variant}
-              label={labels[i] ?? `화면 ${i + 1}`}
-              onRemove={() => onRemove(i)}
-            />
+            <div className="shrink-0">
+              <ThumbCard
+                step={i + 1}
+                variant={variant}
+                label={labels[i] ?? `화면 ${i + 1}`}
+                onRemove={() => onRemove(i)}
+              />
+            </div>
           </Fragment>
         ))}
-        <div className="w-6" />
-        <AddThumbCard onClick={onAdd} />
+        <div className="w-4 shrink-0 md:w-6" />
+        <div className="shrink-0">
+          <AddThumbCard onClick={onAdd} />
+        </div>
       </div>
     </div>
 
-    <div className="mt-4 flex items-center justify-between">
+    <div className="mt-4 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center sm:gap-0">
       <div className="t-caption inline-flex items-center gap-1.5 text-text-tertiary">
         <Info size={12} />
         카드를 드래그해 순서를 바꿀 수 있어요

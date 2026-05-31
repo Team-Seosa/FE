@@ -24,7 +24,7 @@ const getPhoneShadow = (isMiddle: boolean) =>
 
 const IsometricPhones = ({ screens, visible }: IsometricPhonesProps) => (
   <div
-    className="relative h-[600px]"
+    className="relative hidden h-[480px] md:block lg:h-[600px]"
     style={{
       perspective: "1400px",
       opacity: visible ? 1 : 0,

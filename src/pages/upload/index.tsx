@@ -64,7 +64,7 @@ const UploadPage = () => {
         }
       />
       <div
-        className="mx-auto w-full max-w-[1280px] px-16 py-16"
+        className="mx-auto w-full max-w-[1280px] px-4 py-8 md:px-8 md:py-12 lg:px-16 lg:py-16"
         style={{ animation: "uibowl-fadein 240ms var(--ease-out-expo)" }}
       >
         <div className="t-caption tracking-[0.08em] uppercase text-text-tertiary">
@@ -79,7 +79,7 @@ const UploadPage = () => {
         <SampleFlowChips activeFlow={activeFlow} onSelect={selectFlow} />
 
         <div
-          className="mt-8 rounded-[20px] border border-border-subtle bg-bg-elevated p-8"
+          className="mt-8 rounded-2xl border border-border-subtle bg-bg-elevated p-4 md:p-6 lg:rounded-[20px] lg:p-8"
           style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)" }}
         >
           {thumbs.length === 0 ? (
@@ -94,7 +94,7 @@ const UploadPage = () => {
           )}
         </div>
 
-        <div className="mt-8 flex items-center justify-between">
+        <div className="mt-8 flex flex-col items-stretch justify-between gap-3 sm:flex-row sm:items-center sm:gap-0">
           <div className="t-body inline-flex items-center gap-2 text-text-secondary">
             <span className="inline-flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[rgba(34,211,238,0.15)] text-accent-cyan">
               <Check size={12} />
@@ -103,7 +103,7 @@ const UploadPage = () => {
           </div>
           <button
             type="button"
-            className="uibowl-btn-primary"
+            className="uibowl-btn-primary justify-center"
             disabled={thumbs.length === 0 || analyzing}
             onClick={startAnalysis}
             style={{ padding: "14px 32px", fontSize: 14 }}

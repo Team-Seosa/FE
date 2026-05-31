@@ -8,7 +8,7 @@ interface PhoneCanvasProps {
 
 const PhoneCanvas = ({ screen }: PhoneCanvasProps) => (
   <div className="mt-6 flex justify-center">
-    <div className="relative">
+    <div className="relative origin-top max-[359px]:scale-90">
       <div
         className="relative h-[580px] w-[280px] overflow-hidden rounded-3xl border border-border-strong bg-bg-overlay"
         style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)" }}

@@ -37,10 +37,10 @@ const ResultPage = () => {
         }
       />
       <div
-        className="mx-auto w-full max-w-[1280px] px-16 pt-12 pb-16"
+        className="mx-auto w-full max-w-[1280px] px-4 pt-8 pb-10 md:px-8 md:pt-12 md:pb-16 lg:px-16"
         style={{ animation: "uibowl-fadein-up 240ms var(--ease-out-expo)" }}
       >
-        <div className="flex items-end justify-between">
+        <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-end sm:gap-0">
           <div>
             <div className="t-caption tracking-[0.08em] uppercase text-text-tertiary">
               ANALYSIS COMPLETE
@@ -59,9 +59,9 @@ const ResultPage = () => {
           onSelect={setSelectedStep}
         />
 
-        <div className="mt-8 grid grid-cols-[7fr_5fr] gap-6">
+        <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-[7fr_5fr]">
           <div
-            className="rounded-[20px] border border-border-subtle bg-bg-elevated p-8"
+            className="rounded-2xl border border-border-subtle bg-bg-elevated p-4 md:p-6 lg:rounded-[20px] lg:p-8"
             style={{
               boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
               animation: "uibowl-fadein 240ms var(--ease-out-expo)",
@@ -84,7 +84,7 @@ const ResultPage = () => {
           </div>
 
           <div
-            className="rounded-[20px] border border-border-subtle bg-bg-elevated p-8"
+            className="rounded-2xl border border-border-subtle bg-bg-elevated p-4 md:p-6 lg:rounded-[20px] lg:p-8"
             style={{
               boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)",
               animation: "uibowl-fadein 240ms var(--ease-out-expo) 120ms both",
@@ -102,14 +102,14 @@ const ResultPage = () => {
           </div>
         </div>
 
-        <div className="mt-8 flex items-center justify-between">
-          <button type="button" className="uibowl-btn-ghost">
+        <div className="mt-8 flex flex-col-reverse items-stretch justify-between gap-3 sm:flex-row sm:items-center sm:gap-0">
+          <button type="button" className="uibowl-btn-ghost justify-center">
             <Download size={14} />
             JSON 다운로드
           </button>
           <button
             type="button"
-            className="uibowl-btn-primary"
+            className="uibowl-btn-primary justify-center"
             onClick={() => navigate(ROUTES.UPLOAD)}
           >
             <Layers size={14} />
