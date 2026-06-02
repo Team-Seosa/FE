@@ -47,3 +47,29 @@ export interface HeroScreen {
   variant: ThumbVariant;
   boxes: HeroBox[];
 }
+
+// API request / response
+export interface UploadedFile {
+  file: File;
+  previewUrl: string;
+}
+
+export interface ApiTopK {
+  rank: 1 | 2 | 3;
+  label: string;
+  probability: number;
+}
+
+export interface ApiScreen {
+  screen: number;
+  label: string;
+  probability: number;
+}
+
+export interface PredictResponse {
+  success: boolean;
+  num_screens: number;
+  top_k: ApiTopK[];
+  screens: ApiScreen[];
+  low_confidence: boolean;
+}

@@ -1,15 +1,13 @@
-import PhoneMockUI from "@/components/common/PhoneMockUI";
 import { X } from "@/components/icons";
-import type { ThumbVariant } from "@/types/uibowl";
 
 interface ThumbCardProps {
   step: number;
-  variant: ThumbVariant;
+  previewUrl: string;
   label: string;
   onRemove: () => void;
 }
 
-const ThumbCard = ({ step, variant, label, onRemove }: ThumbCardProps) => (
+const ThumbCard = ({ step, previewUrl, label, onRemove }: ThumbCardProps) => (
   <div
     className="group relative h-[360px] w-[168px] flex-shrink-0 cursor-grab overflow-hidden rounded-[14px] border border-border-subtle bg-bg-overlay transition-all hover:-translate-y-0.5 hover:border-border-strong"
     style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.03)" }}
@@ -31,14 +29,17 @@ const ThumbCard = ({ step, variant, label, onRemove }: ThumbCardProps) => (
     >
       <X size={12} />
     </button>
-    <div className="h-full w-full p-2">
-      <PhoneMockUI variant={variant} showStatusBar={false} />
+    <div className="h-full w-full">
+      <img
+        src={previewUrl}
+        alt={`화면 ${step}`}
+        className="h-full w-full object-cover"
+      />
     </div>
     <div
       className="absolute inset-x-0 bottom-0 px-3 py-2.5 text-xs font-medium text-text-secondary"
       style={{
-        background:
-          "linear-gradient(to top, rgba(10,10,11,0.85), transparent)",
+        background: "linear-gradient(to top, rgba(10,10,11,0.85), transparent)",
       }}
     >
       {label}

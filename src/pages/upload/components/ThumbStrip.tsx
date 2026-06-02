@@ -1,25 +1,24 @@
 import { Fragment } from "react";
 import { ArrowRight, Info, Plus } from "@/components/icons";
-import type { ThumbVariant } from "@/types/uibowl";
+import type { UploadedFile } from "@/types/uibowl";
 import AddThumbCard from "./AddThumbCard";
 import ThumbCard from "./ThumbCard";
 
 interface ThumbStripProps {
-  thumbs: ThumbVariant[];
-  labels: string[];
+  files: UploadedFile[];
   onRemove: (idx: number) => void;
   onAdd: () => void;
 }
 
-const ThumbStrip = ({ thumbs, labels, onRemove, onAdd }: ThumbStripProps) => (
+const ThumbStrip = ({ files, onRemove, onAdd }: ThumbStripProps) => (
   <>
     <div className="t-caption tracking-[0.08em] uppercase text-text-tertiary">
-      {thumbs.map((_, i) => `Step ${i + 1}`).join("  →  ")}
+      {files.map((_, i) => `Step ${i + 1}`).join("  →  ")}
     </div>
     <div className="uibowl-scroll mt-4 overflow-x-auto pb-3">
       <div className="flex min-h-[280px] items-center md:min-h-[380px]">
-        {thumbs.map((variant, i) => (
-          <Fragment key={i}>
+        {files.map(({ previewUrl }, i) => (
+          <Fragment key={previewUrl}>
             {i > 0 && (
               <div
                 className="flex w-8 shrink-0 justify-center text-accent-indigo md:w-12"
@@ -34,8 +33,8 @@ const ThumbStrip = ({ thumbs, labels, onRemove, onAdd }: ThumbStripProps) => (
             <div className="shrink-0">
               <ThumbCard
                 step={i + 1}
-                variant={variant}
-                label={labels[i] ?? `화면 ${i + 1}`}
+                previewUrl={previewUrl}
+                label={`화면 ${i + 1}`}
                 onRemove={() => onRemove(i)}
               />
             </div>
@@ -51,7 +50,7 @@ const ThumbStrip = ({ thumbs, labels, onRemove, onAdd }: ThumbStripProps) => (
     <div className="mt-4 flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center sm:gap-0">
       <div className="t-caption inline-flex items-center gap-1.5 text-text-tertiary">
         <Info size={12} />
-        카드를 드래그해 순서를 바꿀 수 있어요
+        화면 순서가 분류 결과에 영향을 줍니다
       </div>
       <button
         type="button"

@@ -1,7 +1,9 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string) ?? "";
 
 const ENDPOINT = {
   TEST: `${API_BASE_URL}/test`,
+  PREDICT: `${API_BASE_URL}/predict`,
+  HEALTH: `${API_BASE_URL}/health`,
 } as const;
 
 export const ROUTES = {
