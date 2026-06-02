@@ -1,7 +1,7 @@
 import type { AnalysisResult, PredictResponse } from "@/types/uibowl";
 
 export function mapPredictResponse(res: PredictResponse): AnalysisResult {
-  console.log("API 응답:", res);
+  const topLabel = res.top_k?.[0]?.label ?? "";
   return {
     patterns: (res.top_k ?? []).map((t) => ({
       rank: t.rank,
@@ -9,9 +9,9 @@ export function mapPredictResponse(res: PredictResponse): AnalysisResult {
       code: t.rank,
       score: t.probability,
     })),
-    screens: (res.screens ?? []).map((s) => ({
-      step: s.screen,
-      label: s.label,
+    screens: Array.from({ length: res.num_screens }, (_, i) => ({
+      step: i + 1,
+      label: topLabel,
       components: [],
     })),
   };
