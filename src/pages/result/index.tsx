@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UIBowlNav from "@/components/common/UIBowlNav";
 import { ArrowLeft, Download, Layers } from "@/components/icons";
 import { ROUTES } from "@/constants/endpoint";
+import type { AnalysisResult, PredictResponse } from "@/types/uibowl";
 import ApiResponse from "./components/ApiResponse";
 import ComponentSummary from "./components/ComponentSummary";
 import DetectedChips from "./components/DetectedChips";
@@ -10,18 +11,43 @@ import FlowTimeline from "./components/FlowTimeline";
 import PatternMatching from "./components/PatternMatching";
 import PhoneCanvas from "./components/PhoneCanvas";
 import { MOCK_RESULT } from "./data/mockResult";
+import { mapPredictResponse } from "./utils/mapApiResponse";
 
 const ResultPage = () => {
   const navigate = useNavigate();
-  const [selectedStep, setSelectedStep] = useState(2);
+  const location = useLocation();
+  const [selectedStep, setSelectedStep] = useState(1);
   const [apiOpen, setApiOpen] = useState(true);
 
-  const screen = useMemo(
-    () =>
-      MOCK_RESULT.screens.find((s) => s.step === selectedStep) ??
-      MOCK_RESULT.screens[0],
-    [selectedStep],
+  const apiResult: PredictResponse | undefined = (
+    location.state as { result?: PredictResponse; previewUrls?: string[] } | null
+  )?.result;
+  const previewUrls: string[] = (
+    location.state as { previewUrls?: string[] } | null
+  )?.previewUrls ?? [];
+
+  const result: AnalysisResult = useMemo(
+    () => (apiResult ? mapPredictResponse(apiResult) : MOCK_RESULT),
+    [apiResult],
   );
+
+  const screen = useMemo(
+    () => result.screens.find((s) => s.step === selectedStep) ?? result.screens[0],
+    [result, selectedStep],
+  );
+
+  const handleDownload = () => {
+    const data = apiResult ?? result;
+    const blob = new Blob([JSON.stringify(data, null, 2)], {
+      type: "application/json",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "uibowl_result.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="uibowl-root min-h-screen w-full bg-bg-base">
@@ -48,13 +74,24 @@ const ResultPage = () => {
             <h1 className="t-h1 mt-2 text-text-primary">분석 결과</h1>
           </div>
           <div className="t-body-sm text-text-secondary">
-            추론 시간{" "}
-            <span className="font-mono text-text-primary">1.8s</span> · 모델 v0.3
+            {apiResult ? (
+              <>
+                <span className="font-mono text-text-primary">{apiResult.num_screens}</span>장 분석됨
+                {apiResult.low_confidence && (
+                  <span className="ml-3 text-yellow-400">⚠ 신뢰도 낮음</span>
+                )}
+              </>
+            ) : (
+              <>
+                추론 시간{" "}
+                <span className="font-mono text-text-primary">1.8s</span> · 모델 v0.3
+              </>
+            )}
           </div>
         </div>
 
         <FlowTimeline
-          screens={MOCK_RESULT.screens}
+          screens={result.screens}
           selected={selectedStep}
           onSelect={setSelectedStep}
         />
@@ -70,7 +107,7 @@ const ResultPage = () => {
             <div className="flex items-baseline justify-between">
               <div>
                 <div className="t-caption tracking-[0.08em] uppercase text-text-tertiary">
-                  STEP {screen.step} OF {MOCK_RESULT.screens.length}
+                  STEP {screen.step} OF {result.screens.length}
                 </div>
                 <div className="t-h2 mt-1.5 text-text-primary">{screen.label}</div>
               </div>
@@ -79,7 +116,7 @@ const ResultPage = () => {
               </div>
             </div>
 
-            <PhoneCanvas screen={screen} />
+            <PhoneCanvas screen={screen} previewUrl={previewUrls[screen.step - 1]} />
             <DetectedChips components={screen.components} />
           </div>
 
@@ -90,12 +127,12 @@ const ResultPage = () => {
               animation: "uibowl-fadein 240ms var(--ease-out-expo) 120ms both",
             }}
           >
-            <PatternMatching patterns={MOCK_RESULT.patterns} />
+            <PatternMatching patterns={result.patterns} />
             <div className="my-6 h-px bg-border-subtle" />
-            <ComponentSummary screens={MOCK_RESULT.screens} />
+            <ComponentSummary screens={result.screens} />
             <div className="my-6 h-px bg-border-subtle" />
             <ApiResponse
-              data={MOCK_RESULT}
+              data={result}
               open={apiOpen}
               onToggle={() => setApiOpen((o) => !o)}
             />
@@ -103,7 +140,11 @@ const ResultPage = () => {
         </div>
 
         <div className="mt-8 flex flex-col-reverse items-stretch justify-between gap-3 sm:flex-row sm:items-center sm:gap-0">
-          <button type="button" className="uibowl-btn-ghost justify-center">
+          <button
+            type="button"
+            className="uibowl-btn-ghost justify-center"
+            onClick={handleDownload}
+          >
             <Download size={14} />
             JSON 다운로드
           </button>
