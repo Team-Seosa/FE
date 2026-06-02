@@ -1,4 +1,3 @@
-import ENDPOINT from "@/constants/endpoint";
 import type { PredictResponse } from "@/types/uibowl";
 
 export async function predictImages(files: File[]): Promise<PredictResponse> {
