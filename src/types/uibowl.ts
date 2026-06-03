@@ -70,6 +70,8 @@ export interface PredictResponse {
   success: boolean;
   num_screens: number;
   top_k: ApiTopK[];
-  screens: ApiScreen[];
+  screens?: ApiScreen[];
   low_confidence: boolean;
+  matched_patterns?: string[];
+  message?: string | null;
 }
