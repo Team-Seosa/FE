@@ -32,7 +32,7 @@ const BBoxOverlay = ({ boxes, screenIdx }: BBoxOverlayProps) => {
     <svg
       key={`${screenIdx}-${activeIdx}`}
       viewBox="0 0 240 500"
-      className="pointer-events-none absolute inset-0 h-full w-full"
+      className="pointer-events-none absolute inset-0 h-full w-full overflow-visible"
     >
       <defs>
         <filter id={`gl-${screenIdx}`} x="-50%" y="-50%" width="200%" height="200%">

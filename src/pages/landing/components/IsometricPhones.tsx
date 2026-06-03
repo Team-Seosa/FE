@@ -61,12 +61,12 @@ const IsometricPhones = ({ screens, visible }: IsometricPhonesProps) => (
             }}
           >
             <div
-              className="relative h-full w-full overflow-hidden rounded-[28px] border border-border-strong bg-bg-overlay"
+              className="absolute inset-0 overflow-hidden rounded-[28px] border border-border-strong bg-bg-overlay"
               style={{ boxShadow: getPhoneShadow(isMiddle) }}
             >
               <HeroPhoneUI variant={s.variant} />
-              <BBoxOverlay boxes={s.boxes} screenIdx={i} />
             </div>
+            <BBoxOverlay boxes={s.boxes} screenIdx={i} />
           </div>
         );
       })}
