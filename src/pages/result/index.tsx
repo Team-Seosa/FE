@@ -20,11 +20,15 @@ const ResultPage = () => {
   const [apiOpen, setApiOpen] = useState(true);
 
   const apiResult: PredictResponse | undefined = (
-    location.state as { result?: PredictResponse; previewUrls?: string[] } | null
+    location.state as {
+      result?: PredictResponse;
+      previewUrls?: string[];
+    } | null
   )?.result;
-  const previewUrls: string[] = (
-    location.state as { previewUrls?: string[] } | null
-  )?.previewUrls ?? [];
+  const previewUrls: string[] =
+    (location.state as { previewUrls?: string[] } | null)?.previewUrls ?? [];
+
+  const isSample = !apiResult;
 
   const result: AnalysisResult = useMemo(
     () => (apiResult ? mapPredictResponse(apiResult) : MOCK_RESULT),
@@ -32,7 +36,8 @@ const ResultPage = () => {
   );
 
   const screen = useMemo(
-    () => result.screens.find((s) => s.step === selectedStep) ?? result.screens[0],
+    () =>
+      result.screens.find((s) => s.step === selectedStep) ?? result.screens[0],
     [result, selectedStep],
   );
 
@@ -76,7 +81,10 @@ const ResultPage = () => {
           <div className="t-body-sm text-text-secondary">
             {apiResult ? (
               <>
-                <span className="font-mono text-text-primary">{apiResult.num_screens}</span>장 분석됨
+                <span className="font-mono text-text-primary">
+                  {apiResult.num_screens}
+                </span>
+                장 분석됨
                 {apiResult.low_confidence && (
                   <span className="ml-3 text-yellow-400">⚠ 신뢰도 낮음</span>
                 )}
@@ -84,7 +92,8 @@ const ResultPage = () => {
             ) : (
               <>
                 추론 시간{" "}
-                <span className="font-mono text-text-primary">1.8s</span> · 모델 v0.3
+                <span className="font-mono text-text-primary">1.8s</span> · 모델
+                v0.3
               </>
             )}
           </div>
@@ -109,14 +118,19 @@ const ResultPage = () => {
                 <div className="t-caption tracking-[0.08em] uppercase text-text-tertiary">
                   STEP {screen.step} OF {result.screens.length}
                 </div>
-                <div className="t-h2 mt-1.5 text-text-primary">{screen.label}</div>
+                <div className="t-h2 mt-1.5 text-text-primary">
+                  {screen.label}
+                </div>
               </div>
               <div className="t-caption text-accent-cyan">
                 {screen.components.length}개 감지됨
               </div>
             </div>
 
-            <PhoneCanvas screen={screen} previewUrl={previewUrls[screen.step - 1]} />
+            <PhoneCanvas
+              screen={screen}
+              previewUrl={previewUrls[screen.step - 1]}
+            />
             <DetectedChips components={screen.components} />
           </div>
 
@@ -128,8 +142,12 @@ const ResultPage = () => {
             }}
           >
             <PatternMatching patterns={result.patterns} />
-            <div className="my-6 h-px bg-border-subtle" />
-            <ComponentSummary screens={result.screens} />
+            {isSample && (
+              <>
+                <div className="my-6 h-px bg-border-subtle" />
+                <ComponentSummary screens={result.screens} />
+              </>
+            )}
             <div className="my-6 h-px bg-border-subtle" />
             <ApiResponse
               data={result}
@@ -153,8 +171,7 @@ const ResultPage = () => {
             className="uibowl-btn-primary justify-center"
             onClick={() => navigate(ROUTES.UPLOAD)}
           >
-            <Layers size={14} />
-            새 플로우 분석하기
+            <Layers size={14} />새 플로우 분석하기
           </button>
         </div>
       </div>
